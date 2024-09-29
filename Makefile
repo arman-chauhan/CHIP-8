@@ -5,16 +5,18 @@ SRCS_DIR = src
 INCLUDE_DIR = src/include
 EXTERNAL_INCLUDE_DIR = src/external/include
 LIB_DIR = src/external/lib
-OBJ_DIR = objs
+OBJ_DIR = build/objs
+BIN_DIR = build
 
 SRCS = $(wildcard $(SRCS_DIR)/*.c)
 OBJS = $(patsubst $(SRCS_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
-TARGET = emu
+TARGET = $(BIN_DIR)/emu
 
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
+	@mkdir -p $(BIN_DIR)  
 	$(CC) -o $@ $^ -L$(LIB_DIR) -lraylib  -framework Cocoa  -framework IOKit 
 
 $(OBJ_DIR)/%.o: $(SRCS_DIR)/%.c
