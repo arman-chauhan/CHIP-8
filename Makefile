@@ -1,5 +1,5 @@
 CC = clang
-CFLAGS = -I$(INCLUDE_DIR) -I$(EXTERNAL_INCLUDE_DIR) -Wall -Wextra -Werror -Wpedantic -g
+CFLAGS = -I$(INCLUDE_DIR) -I$(EXTERNAL_INCLUDE_DIR) -Wall -Wextra -Werror -g
 
 SRCS_DIR = src
 INCLUDE_DIR = src/include
