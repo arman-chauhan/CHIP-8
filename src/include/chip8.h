@@ -14,13 +14,13 @@
 #define DISPLAY_SIZE (DISPLAY_WIDTH * DISPLAY_HEIGHT)
 
 typedef struct Chip8State {
-    uint64_t memory[MEMORY_SIZE];  // 4kb total memory
-    uint8_t V[REGISTER_NUM];       // General puporse registers (except VF)
-    uint16_t I;                    // Index register
-    uint16_t PC;                   // Program Counter
-    uint16_t stack[STACK_SIZE];    // Stack (16 levels deep)
-    uint8_t SP;  // Stack Pointer (tracks the top of the stack)
-    uint8_t DT;  // Delay timer (counts down to zero)
+    uint8_t memory[MEMORY_SIZE];  // 4kb total memory
+    uint8_t V[REGISTER_NUM];      // General puporse registers (except VF)
+    uint16_t I;                   // Index register
+    uint16_t PC;                  // Program Counter
+    uint16_t stack[STACK_SIZE];   // Stack (16 levels deep)
+    uint8_t SP;                   // Stack Pointer (tracks the top of the stack)
+    uint8_t DT;                   // Delay timer (counts down to zero)
     uint8_t ST;  // Sound timer (counts down to zero, makes sound when non-zero)
 
     uint8_t FB[DISPLAY_SIZE];  // Frame Buffer
