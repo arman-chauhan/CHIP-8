@@ -125,18 +125,21 @@ void AND(Chip8State *state, uint8_t *opCode) {
     const uint8_t y = GET_Y(opCode);
     state->V[x] &= state->V[y];
     state->PC += 2;
+    state->V[0xf] = 0;
 }
 void OR(Chip8State *state, uint8_t *opCode) {
     const uint8_t x = GET_X(opCode);
     const uint8_t y = GET_Y(opCode);
     state->V[x] |= state->V[y];
     state->PC += 2;
+    state->V[0xf] = 0;
 }
 void XOR(Chip8State *state, uint8_t *opCode) {
     const uint8_t x = GET_X(opCode);
     const uint8_t y = GET_Y(opCode);
     state->V[x] ^= state->V[y];
     state->PC += 2;
+    state->V[0xf] = 0;
 }
 void SHR(Chip8State *state, uint8_t *opCode) {
     const uint8_t x = GET_X(opCode);
