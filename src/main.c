@@ -53,7 +53,7 @@ int main(const int argc, char* argv[]) {
         }
 
         while (accumulator >= timeStep) {
-            for (int i = 0; i < 10; i++) EmulateCycle(state);
+            for (int i = 0; i < 8; i++) EmulateCycle(state);
             accumulator -= timeStep;  // Subtract fixed time step
 
             // Update timers

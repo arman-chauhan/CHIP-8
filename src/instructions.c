@@ -187,24 +187,25 @@ void SUBN_REG(Chip8State *state, uint8_t *opCode) {
 }
 
 void DRAW(Chip8State *state, uint8_t *opCode) {
-    const uint8_t X = state->V[GET_X(opCode)] % DISPLAY_WIDTH;
-    const uint8_t Y = state->V[GET_Y(opCode)] % DISPLAY_HEIGHT;
-    const uint8_t n = (GET_KK(opCode) & 0x0f);
+    const uint8_t x = state->V[GET_X(opCode)] % DISPLAY_WIDTH;
+    const uint8_t y = state->V[GET_Y(opCode)] % DISPLAY_HEIGHT;
+    const uint8_t n = GET_KK(opCode) & 0x0F;
 
-    state->V[0xf] = 0;
-    for (int i = 0; i < n; i++) {
-        const uint8_t pixel = state->memory[state->I + i];
-        const uint8_t rowCord = (Y + i);
-        if (rowCord >= DISPLAY_HEIGHT) break;
+    state->V[0xF] = 0;
+    for (uint8_t row = 0; row < n; row++) {
+        const uint8_t pixelRow = state->memory[state->I + row];
+        uint8_t col = x;
 
-        for (int j = 0; j < 8; j++) {
-            const uint8_t colCord = (X + j);
-            if (colCord >= DISPLAY_WIDTH) break;
-            if (pixel & (0x80 >> j)) {
-                state->V[0xf] = state->FB[rowCord][colCord];
-                state->FB[rowCord][colCord] ^= 1;
-            }
+        for (int8_t bit = 7; bit >= 0; bit--) {
+            const uint8_t pixel = pixelRow & (1 << bit);
+            // Check for collision
+            if (pixel && state->FB[y + row][col]) state->V[0xF] = 1;
+
+            // XOR the framebuffer with the pixel value
+            state->FB[y + row][col] ^= pixel;
+            if (++col >= DISPLAY_WIDTH) break;
         }
+        if (y + row >= DISPLAY_HEIGHT) break;
     }
     state->PC += 2;
 }
