@@ -211,8 +211,6 @@ void DRAW(Chip8State *state, uint8_t *opCode) {
 }
 void SPRITE(Chip8State *state, uint8_t *opCode) {
     const uint8_t x = GET_X(opCode);
-    printf("\n============= %x  %x ===========\n", state->V[x],
-           FONT_ADDR + state->V[x] * 5);
     state->I = FONT_ADDR + state->V[x] * 5;
     state->PC += 2;
 }
