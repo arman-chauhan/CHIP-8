@@ -64,61 +64,61 @@ void EmulateCycle(Chip8State* state) {
     Disassembler(state);
     printf("\n");
 
-    const uint8_t* opCode = &state->memory[state->PC];
+    uint8_t* opCode = &state->memory[state->PC];
     const uint8_t firstnib = opCode[0] >> 4;
     const uint8_t n = opCode[1] & 0x0F;
     switch (firstnib) {
         case 0x0: {
             switch (opCode[1]) {
-                case 0xE0: Unimplemented(state); break;
-                case 0xEE: Unimplemented(state); break;
+                case 0xE0: CLS(state); break;
+                case 0xEE: RET(state); break;
                 default: Unimplemented(state); break;
             }
         } break;
-        case 0x1: Unimplemented(state); break;
-        case 0x2: Unimplemented(state); break;
-        case 0x3: Unimplemented(state); break;
-        case 0x4: Unimplemented(state); break;
-        case 0x5: Unimplemented(state); break;
-        case 0x6: Unimplemented(state); break;
-        case 0x7: Unimplemented(state); break;
+        case 0x1: JUMP_ABS(state, opCode); break;
+        case 0x2: CALL(state, opCode); break;
+        case 0x3: SKIP_EQ(state, opCode); break;
+        case 0x4: SKIP_NEQ(state, opCode); break;
+        case 0x5: SKIP_EQ_REG(state, opCode); break;
+        case 0x6: LOAD(state, opCode); break;
+        case 0x7: ADD(state, opCode); break;
         case 0x8: {
             switch (n) {
-                case 0x0: Unimplemented(state); break;
-                case 0x1: Unimplemented(state); break;
-                case 0x2: Unimplemented(state); break;
-                case 0x3: Unimplemented(state); break;
-                case 0x4: Unimplemented(state); break;
-                case 0x5: Unimplemented(state); break;
-                case 0x6: Unimplemented(state); break;
-                case 0x7: Unimplemented(state); break;
-                case 0xe: Unimplemented(state); break;
+                case 0x0: MOV(state, opCode); break;
+                case 0x1: OR(state, opCode); break;
+                case 0x2: AND(state, opCode); break;
+                case 0x3: XOR(state, opCode); break;
+                case 0x4: ADD_REG(state, opCode); break;
+                case 0x5: SUB_REG(state, opCode); break;
+                case 0x6: SHR(state, opCode); break;
+                case 0x7: SUBN_REG(state, opCode); break;
+                case 0xe: SHL(state, opCode); break;
                 default: Unimplemented(state); break;
             }
         } break;
-        case 0x9: Unimplemented(state); break;
-        case 0xa: Unimplemented(state); break;
-        case 0xb: Unimplemented(state); break;
-        case 0xc: Unimplemented(state); break;
-        case 0xd: Unimplemented(state); break;
+        case 0x9: SKIP_NEQ_REG(state, opCode); break;
+        case 0xa: MVI(state, opCode); break;
+        case 0xb: JUMP_REL(state, opCode); break;
+        case 0xc: RAND(state, opCode); break;
+        case 0xd: DRAW(state, opCode); break;
         case 0xe: {
             switch (opCode[1]) {
-                case 0x9e: Unimplemented(state); break;
-                case 0xa1: Unimplemented(state); break;
+                case 0x9e: KEY_PRS(state, opCode); break;
+                case 0xa1: KEY_NPRS(state, opCode); break;
                 default: Unimplemented(state); break;
             }
         } break;
         case 0xf: {
             switch (opCode[1]) {
-                case 0x07: Unimplemented(state); break;
-                case 0x0a: Unimplemented(state); break;
-                case 0x15: Unimplemented(state); break;
-                case 0x18: Unimplemented(state); break;
-                case 0x1e: Unimplemented(state); break;
-                case 0x29: Unimplemented(state); break;
-                case 0x33: Unimplemented(state); break;
-                case 0x55: Unimplemented(state); break;
-                case 0x65: Unimplemented(state); break;
+                case 0x07: LOADD(state, opCode); break;
+                case 0x0a: KEY_WAIT(state, opCode); break;
+                case 0x15: MOVD(state, opCode); break;
+                case 0x18: MOVS(state, opCode); break;
+                case 0x1e: ADI(state, opCode); break;
+                case 0x29: SPRITE(state, opCode); break;
+                case 0x33: MOVBCD(state, opCode); break;
+                case 0x55: MOVR(state, opCode); break;
+                case 0x65: MOVM(state, opCode); break;
                 default: Unimplemented(state); break;
             }
         } break;

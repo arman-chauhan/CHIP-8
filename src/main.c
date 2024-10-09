@@ -2,7 +2,7 @@
 #include "include/chip8.h"
 #include "include/common.h"
 
-#define SCALE 10
+#define SCALE 20
 #define SCALED_HEIGHT (SCALE * DISPLAY_HEIGHT)
 #define SCALED_WIDTH (SCALE * DISPLAY_WIDTH)
 
