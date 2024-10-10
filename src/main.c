@@ -38,7 +38,7 @@ int main(const int argc, char* argv[]) {
     InitWindow(SCALED_WIDTH, SCALED_HEIGHT, "CHIP-8 EMULATOR");
     printf("\n====================================================\n");
 
-    const float timeStep = 1.0f / 60.0f;  // 60 Instructions per second
+    const float timeStep = 1.0f / 60.0f;  // 60 frames per second
     float currentTime = GetTime();
     float accumulator = 0.0f;
     while (state->running) {
@@ -53,7 +53,7 @@ int main(const int argc, char* argv[]) {
         }
 
         while (accumulator >= timeStep) {
-            for (int i = 0; i < 8; i++) EmulateCycle(state);
+            for (int i = 0; i < 10; i++) EmulateCycle(state);
             accumulator -= timeStep;  // Subtract fixed time step
 
             // Update timers
@@ -67,8 +67,8 @@ int main(const int argc, char* argv[]) {
 
         for (int y = 0; y < 32; y++) {
             for (int x = 0; x < 64; x++) {
-                const Color color = state->FB[y][x] ? light : dark;
-                DrawRectangle(x * SCALE, y * SCALE, SCALE, SCALE, color);
+                if (!state->FB[y][x]) continue;
+                DrawRectangle(x * SCALE, y * SCALE, SCALE, SCALE, light);
             }
         }
         EndDrawing();
