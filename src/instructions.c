@@ -228,7 +228,7 @@ void KEY_WAIT(Chip8State *state, uint8_t *opCode) {
     const uint8_t x = GET_X(opCode);
     for (int i = 0; i < 16; i++) {
         if (state->keys[i]) {
-            state->V[x] = state->keys[i];
+            state->V[x] = i;
             state->PC += 2;
             return;
         }
