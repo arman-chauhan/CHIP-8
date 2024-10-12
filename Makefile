@@ -15,6 +15,9 @@ ifeq ($(PLATFORM), Darwin)
 ifeq ($(PLATFORM), Linux)
 	#flags for linux
 	LDFLAGS += 
+else	
+	#for other
+	LDFLAGS += 
 endif
 
 SRCS = $(wildcard $(SRCS_DIR)/*.c)
