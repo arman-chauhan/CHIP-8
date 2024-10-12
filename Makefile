@@ -12,6 +12,9 @@ PLATFORM = $(shell uname)
 
 ifeq ($(PLATFORM), Darwin)
 	LDFLAGS += -framework Cocoa -framework IOKit
+ifeq ($(PLATFORM), Linux)
+	#flags for linux
+	LDFLAGS += 
 endif
 
 SRCS = $(wildcard $(SRCS_DIR)/*.c)
