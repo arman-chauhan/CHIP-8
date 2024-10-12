@@ -12,13 +12,14 @@ PLATFORM = $(shell uname)
 
 ifeq ($(PLATFORM), Darwin)
 	LDFLAGS += -framework Cocoa -framework IOKit
-ifeq ($(PLATFORM), Linux)
+else ifeq ($(PLATFORM), Linux)
 	#flags for linux
-	LDFLAGS += 
-else	
-	#for other
-	LDFLAGS += 
+	LDFLAGS +=
+else
+	#flags for others
+	LDFLAGS +=
 endif
+
 
 SRCS = $(wildcard $(SRCS_DIR)/*.c)
 OBJS = $(patsubst $(SRCS_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
